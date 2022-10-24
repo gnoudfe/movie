@@ -1,0 +1,183 @@
+@use '../../scss/' as *;
+
+.header {
+    height: $header-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    transition: height 0.3s ease, background-color 0.3s ease;
+
+    @include mobile {
+    }
+
+    &.shrink {
+        height: $header-shrink-height;
+        background-color: $body-bg;
+    }
+
+    &__wrap {
+        @include flex(center, space-between);
+        height: 100%;
+        padding: 0 2rem;
+
+        @include mobile {
+            justify-content: flex-end;
+        }
+
+        .logo {
+            @include mobile {
+                display: none;
+            }
+        }
+
+        .menu-icon {
+            display: none;
+            @include mobile {
+                display: block;
+                color: #fff;
+                font-size: 2rem;
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+        }
+
+        .x-icon {
+            display: none;
+
+            @include mobile {
+                display: block;
+                font-size: 2rem;
+                cursor: pointer;
+                color: #fff;
+                z-index: 100;
+
+                padding: 2rem;
+            }
+        }
+    }
+
+    &__nav {
+        @include flex(center, unset);
+
+        @include mobile {
+            display: none;
+            background-color: #000;
+            width: 200px;
+            text-align: right;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            animation: slideIn 0.7s ease;
+            li {
+                @include mobile {
+                    transform: translateY(0px) !important;
+                    color: #fff;
+                }
+                padding: 10px !important;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0;
+                    transition: width 0.5s ease;
+                    background-color: transparent !important;
+                }
+
+                &.active::after,
+                &:hover::after {
+                    width: 0;
+                }
+            }
+            & > * ~ * {
+                margin-left: 0rem !important;
+            }
+        }
+        & > * ~ * {
+            margin-left: 2rem;
+        }
+
+        li {
+            padding: 5px 0;
+            font-weight: 700;
+            position: relative;
+            font-size: 1.4rem;
+            transform: translateY(-10px);
+
+            &::after {
+                content: '';
+                position: absolute;
+                height: 2px;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                transition: width 0.5s ease;
+                background-color: $main-color;
+            }
+
+            &.active::after,
+            &:hover::after {
+                width: 100%;
+            }
+
+            &:hover a {
+                color: $main-color;
+            }
+        }
+    }
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 600;
+    @include flex(center, unset);
+
+    img {
+        margin-right: 10px;
+        width: 150px;
+
+        @include mobile {
+            width: 30px;
+            margin-right: 0;
+        }
+    }
+}
+
+.header__wrap__mobile {
+    display: none;
+    @include mobile {
+        display: inline-block;
+        width: 150px;
+        height: 100vh;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(270px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.open {
+    display: block !important;
+}
